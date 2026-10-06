@@ -6,14 +6,25 @@
 //
 
 import Foundation
+import SwiftData
 
-struct TaskItem: Identifiable, Codable {
-    let id: UUID
-    let createdAt: Date
+@Model
+final class TaskItem {
+    var id: UUID
+    var createdAt: Date
     var title: String
     var dueDate: Date?
     var priority: TaskPriority
     var isCompleted: Bool
+    
+    init(title: String, dueDate: Date? = nil, priority: TaskPriority = .normal) {
+        self.id = UUID()
+        self.createdAt = .now
+        self.title = title
+        self.dueDate = dueDate
+        self.priority = priority
+        self.isCompleted = false
+    }
 }
 
 enum TaskPriority: Codable {
