@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct TaskListView: View {
+    @Environment(\.scenePhase) private var scenePhase
     @Bindable var viewModel: TaskListViewModel
     
     var body: some View {
@@ -31,12 +32,27 @@ struct TaskListView: View {
                 }
                 
                 List(viewModel.tasks, id: \.id) { task in
-                    Text(task.title)
+                    VStack(alignment: .leading) {
+                        Text(task.title)
+                        
+                        if let dueDate = task.dueDate {
+                            Text("마감일: \(dueDate.formatted(date: .abbreviated, time: .omitted))")
+                                .font(.caption)
+                                .foregroundStyle(.secondary)
+                        }
+                    }
                 }
             }
             .navigationTitle("할 일")
             .task {
                 await viewModel.loadTasks()
+            }
+            .onChange(of: scenePhase) { _, newPhase in
+                if newPhase == .active {
+                    Task {
+                        await viewModel.loadTasks()
+                    }
+                }
             }
         }
     }
