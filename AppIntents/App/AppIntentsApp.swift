@@ -7,6 +7,7 @@
 
 import SwiftUI
 import SwiftData
+import AppIntents
 
 @main
 struct AppIntentsApp: App {
@@ -20,6 +21,8 @@ struct AppIntentsApp: App {
         let repository = SwiftDataTaskRepository(context: container.mainContext)
         let service = TaskService(repository: repository)
         _viewModel = State(initialValue: TaskListViewModel(service: service))
+        
+        AppDependencyManager.shared.add(dependency: service)
     }
     
     var body: some Scene {
