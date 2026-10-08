@@ -26,6 +26,6 @@ struct AppIntentsApp: App {
         WindowGroup {
             TaskListView(viewModel: viewModel)
         }
-        .modelContainer(for: TaskItem.self)
+        .modelContainer(container)
     }
 }
