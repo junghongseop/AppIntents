@@ -10,9 +10,21 @@ import SwiftData
 
 @main
 struct AppIntentsApp: App {
+    private let container: ModelContainer
+    @State private var viewModel: TaskListViewModel
+    
+    init() {
+        let container = try! ModelContainer(for: TaskItem.self)
+        self.container = container
+        
+        let repository = SwiftDataTaskRepository(context: container.mainContext)
+        let service = TaskService(repository: repository)
+        _viewModel = State(initialValue: TaskListViewModel(service: service))
+    }
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            TaskListView(viewModel: viewModel)
         }
         .modelContainer(for: TaskItem.self)
     }
