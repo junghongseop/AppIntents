@@ -14,6 +14,7 @@ final class TaskListViewModel {
     private let service: TaskService
     
     var tasks: [TaskItem] = []
+    var newTaskTitle = ""
     var errorMessage: String?
     
     init(service: TaskService) {
@@ -23,6 +24,19 @@ final class TaskListViewModel {
     func loadTasks() async {
         do {
             tasks = try await service.fetchTasks()
+        } catch {
+            errorMessage = error.localizedDescription
+        }
+    }
+    
+    func addTask() async {
+        do {
+            let task =  try await service.addTask(title: newTaskTitle)
+            tasks.append(task)
+            newTaskTitle = ""
+            errorMessage = nil
+        } catch TaskServiceError.emptyTitle {
+            errorMessage = "제목을 입력해 주세요."
         } catch {
             errorMessage = error.localizedDescription
         }
