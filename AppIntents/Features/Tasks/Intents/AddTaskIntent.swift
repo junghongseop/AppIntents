@@ -15,17 +15,22 @@ struct AddTaskIntent: AppIntent {
     @Parameter(title: "할 일 제목")
     var taskTitle: String
     
+    @Parameter(title: "마감일")
+    var dueDate: Date?
+    
     @Dependency
     private var service: TaskService
     
     static var parameterSummary: some ParameterSummary {
-        Summary("할 일 \(\.$taskTitle) 추가")
+        Summary("할 일 \(\.$taskTitle) 추가") {
+            \.$dueDate
+        }
     }
     
     @MainActor
     func perform() async throws -> some IntentResult {
         do {
-            _ = try await service.addTask(title: taskTitle)
+            _ = try await service.addTask(title: taskTitle, dueDate: dueDate)
             return .result()
         } catch TaskServiceError.emptyTitle {
             throw AppIntentError(description: "할 일 제목을 입력해주세요.")
