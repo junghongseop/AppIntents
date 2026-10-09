@@ -18,19 +18,34 @@ struct AddTaskIntent: AppIntent {
     @Parameter(title: "마감일")
     var dueDate: Date?
     
+    @Parameter(title: "중요도")
+    var priority: TaskPriorityOption?
+    
     @Dependency
     private var service: TaskService
     
     static var parameterSummary: some ParameterSummary {
         Summary("할 일 \(\.$taskTitle) 추가") {
             \.$dueDate
+            \.$priority
         }
     }
     
     @MainActor
     func perform() async throws -> some IntentResult {
         do {
-            _ = try await service.addTask(title: taskTitle, dueDate: dueDate)
+            let taskPriority: TaskPriority
+            
+            switch priority {
+            case .some(.high):
+                taskPriority = .high
+            case .some(.low):
+                taskPriority = .low
+            case .some(.normal), .none:
+                taskPriority = .normal
+            }
+            
+            _ = try await service.addTask(title: taskTitle, dueDate: dueDate, priority: taskPriority)
             return .result()
         } catch TaskServiceError.emptyTitle {
             throw AppIntentError(description: "할 일 제목을 입력해주세요.")

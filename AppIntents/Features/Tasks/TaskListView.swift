@@ -40,6 +40,10 @@ struct TaskListView: View {
                                 .font(.caption)
                                 .foregroundStyle(.secondary)
                         }
+                        
+                        Text("중요도: \(task.priority.label)")
+                            .font(.caption)
+                            .foregroundStyle(.secondary)
                     }
                 }
             }
@@ -54,6 +58,16 @@ struct TaskListView: View {
                     }
                 }
             }
+        }
+    }
+}
+
+private extension TaskPriority {
+    var label: String {
+        switch self {
+        case .high: "높음"
+        case .low: "낮음"
+        case .normal: "보통"
         }
     }
 }
