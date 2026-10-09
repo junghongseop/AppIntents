@@ -10,4 +10,7 @@ import Foundation
 protocol TaskRepository {
     func fetchAll() async throws -> [TaskItem]
     func add(_ task: TaskItem) async throws
+    
+    func fetch(id: UUID) async throws -> TaskItem?
+    func save() async throws
 }

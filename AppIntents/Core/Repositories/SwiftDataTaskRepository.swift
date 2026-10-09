@@ -24,4 +24,16 @@ final class SwiftDataTaskRepository: TaskRepository {
         context.insert(task)
         try context.save()
     }
+    
+    func fetch(id: UUID) async throws -> TaskItem? {
+        var descriptor = FetchDescriptor<TaskItem>(
+            predicate: #Predicate<TaskItem> { $0.id == id }
+        )
+        descriptor.fetchLimit = 1
+        return try context.fetch(descriptor).first
+    }
+    
+    func save() async throws {
+        try context.save()
+    }
 }
