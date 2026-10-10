@@ -32,7 +32,7 @@ struct AddTaskIntent: AppIntent {
     }
     
     @MainActor
-    func perform() async throws -> some IntentResult & ProvidesDialog {
+    func perform() async throws -> some IntentResult & ProvidesDialog & ReturnsValue<TaskEntity> {
         do {
             let taskPriority: TaskPriority
             
@@ -45,8 +45,12 @@ struct AddTaskIntent: AppIntent {
                 taskPriority = .normal
             }
             
-            _ = try await service.addTask(title: taskTitle, dueDate: dueDate, priority: taskPriority)
-            return .result(dialog: "할 일을 추가했어요.")
+            let createdTask = try await service.addTask(title: taskTitle, dueDate: dueDate, priority: taskPriority)
+            
+            return .result(
+                value: TaskEntity(task: createdTask),
+                dialog: "할 일을 추가했어요."
+            )
         } catch TaskServiceError.emptyTitle {
             throw AppIntentError(description: "할 일 제목을 입력해주세요.")
         }
