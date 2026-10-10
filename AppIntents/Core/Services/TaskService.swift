@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import WidgetKit
 
 enum TaskServiceError: Error {
     case emptyTitle
@@ -28,6 +29,9 @@ final class TaskService {
         
         let task = TaskItem(title: title, dueDate: dueDate, priority: priority)
         try await repository.add(task)
+        
+        WidgetCenter.shared.reloadTimelines(ofKind: "TaskWidget")
+        
         return task
     }
     
