@@ -12,13 +12,10 @@ import SwiftUI
 struct TaskWidgetLiveActivity: Widget {
     var body: some WidgetConfiguration {
         ActivityConfiguration(for: TaskWidgetAttributes.self) { context in
-            // Lock screen/banner UI goes here
             VStack {
-                Text("Hello \(context.state.emoji)")
+                Text(context.attributes.taskTitle)
+                Text(context.state.emoji)
             }
-            .activityBackgroundTint(Color.cyan)
-            .activitySystemActionForegroundColor(Color.black)
-
         } dynamicIsland: { context in
             DynamicIsland {
                 // Expanded UI goes here.  Compose the expanded UI through
@@ -48,7 +45,7 @@ struct TaskWidgetLiveActivity: Widget {
 
 extension TaskWidgetAttributes {
     fileprivate static var preview: TaskWidgetAttributes {
-        TaskWidgetAttributes(name: "World")
+        TaskWidgetAttributes(taskID: UUID(), taskTitle: "보고서 작성 ")
     }
 }
 

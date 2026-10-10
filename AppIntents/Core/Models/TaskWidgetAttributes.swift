@@ -14,6 +14,6 @@ struct TaskWidgetAttributes: ActivityAttributes {
         var emoji: String
     }
 
-    // Fixed non-changing properties about your activity go here!
-    var name: String
+    var taskID: UUID
+    var taskTitle: String
 }
