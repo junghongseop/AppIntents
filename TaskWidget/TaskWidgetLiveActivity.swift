@@ -9,16 +9,6 @@ import ActivityKit
 import WidgetKit
 import SwiftUI
 
-struct TaskWidgetAttributes: ActivityAttributes {
-    public struct ContentState: Codable, Hashable {
-        // Dynamic stateful properties about your activity go here!
-        var emoji: String
-    }
-
-    // Fixed non-changing properties about your activity go here!
-    var name: String
-}
-
 struct TaskWidgetLiveActivity: Widget {
     var body: some WidgetConfiguration {
         ActivityConfiguration(for: TaskWidgetAttributes.self) { context in

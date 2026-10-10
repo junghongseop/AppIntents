@@ -54,6 +54,7 @@
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
 				Core/Models/TaskItem.swift,
+				Core/Models/TaskWidgetAttributes.swift,
 				Core/Repositories/TaskModelContainer.swift,
 			);
 			target = 8EB939D3307A1DFE00323B0D /* TaskWidgetExtension */;
