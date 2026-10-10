@@ -8,7 +8,7 @@
 import Foundation
 import ActivityKit
 
-struct TaskWidgetAttributes: ActivityAttributes {
+nonisolated struct TaskWidgetAttributes: ActivityAttributes {
     public struct ContentState: Codable, Hashable {
         var isCompleted: Bool
     }

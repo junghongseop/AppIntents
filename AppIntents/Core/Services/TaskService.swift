@@ -16,6 +16,7 @@ enum TaskServiceError: Error {
 @MainActor
 final class TaskService {
     private let repository: TaskRepository
+    private let activityService = TaskActivityService()
     
     init(repository: TaskRepository) {
         self.repository = repository
@@ -49,6 +50,8 @@ final class TaskService {
             try await repository.save()
             
             WidgetCenter.shared.reloadTimelines(ofKind: "TaskWidget")
+            
+            await activityService.finish(for: task.id)
         }
             
         return task

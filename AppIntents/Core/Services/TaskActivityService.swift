@@ -27,4 +27,17 @@ final class TaskActivityService {
             pushType: nil
         )
     }
+    
+    func finish(for taskID: UUID) async {
+        let finalState = TaskWidgetAttributes.ContentState(isCompleted: true)
+        let finalContent = ActivityContent(state: finalState, staleDate: nil)
+        
+        for activity in Activity<TaskWidgetAttributes>.activities
+        where activity.attributes.taskID == taskID {
+            await activity.end(
+                finalContent,
+                dismissalPolicy: .after(Date().addingTimeInterval(30))
+            )
+        }
+    }
 }
