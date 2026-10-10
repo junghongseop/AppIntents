@@ -85,23 +85,12 @@ struct TaskWidget: Widget {
     }
 }
 
-extension ConfigurationAppIntent {
-    fileprivate static var smiley: ConfigurationAppIntent {
-        let intent = ConfigurationAppIntent()
-        intent.favoriteEmoji = "😀"
-        return intent
-    }
-    
-    fileprivate static var starEyes: ConfigurationAppIntent {
-        let intent = ConfigurationAppIntent()
-        intent.favoriteEmoji = "🤩"
-        return intent
-    }
-}
-
 #Preview(as: .systemSmall) {
     TaskWidget()
 } timeline: {
-    SimpleEntry(date: .now, configuration: .smiley, taskCount: 0)
-    SimpleEntry(date: .now, configuration: .starEyes, taskCount: 0)
+    SimpleEntry(
+        date: .now,
+        configuration: ConfigurationAppIntent(),
+        taskCount: 0
+    )
 }
