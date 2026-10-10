@@ -44,6 +44,9 @@ struct TaskListView: View {
                         Text("중요도: \(task.priority.label)")
                             .font(.caption)
                             .foregroundStyle(.secondary)
+                        
+                        Text(task.isCompleted ? "완료" : "진행 중")
+                            .font(.caption)
                     }
                 }
             }
