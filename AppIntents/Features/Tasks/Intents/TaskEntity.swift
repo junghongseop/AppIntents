@@ -27,7 +27,7 @@ struct TaskEntity: IndexedEntity {
     }
 }
 
-struct TaskEntityQuery: EntityStringQuery {
+struct TaskEntityQuery: EntityStringQuery, IndexedEntityQuery {
     @Dependency private var service: TaskService
     
     @MainActor
@@ -51,5 +51,19 @@ struct TaskEntityQuery: EntityStringQuery {
     @MainActor
     func suggestedEntities() async throws -> [TaskEntity] {
         try await service.fetchTasks().map(TaskEntity.init)
+    }
+    
+    @MainActor
+    func reindexEntities(for identifiers: [TaskEntity.ID], indexDescription: CSSearchableIndexDescription) async throws {
+        let entities = try await entities(for: identifiers)
+        try await CSSearchableIndex(name: "TaskItems")
+            .indexAppEntities(entities)
+    }
+    
+    @MainActor
+    func reindexAllEntities(indexDescription: CSSearchableIndexDescription) async throws {
+        let entities = try await suggestedEntities()
+        try await CSSearchableIndex(name: "TaskItems")
+            .indexAppEntities(entities)
     }
 }
