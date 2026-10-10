@@ -15,7 +15,7 @@ struct AppIntentsApp: App {
     @State private var viewModel: TaskListViewModel
     
     init() {
-        let container = try! ModelContainer(for: TaskItem.self)
+        let container = try! TaskModelContainer.make()
         self.container = container
         
         let repository = SwiftDataTaskRepository(context: container.mainContext)
