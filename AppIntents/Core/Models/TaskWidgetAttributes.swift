@@ -10,8 +10,7 @@ import ActivityKit
 
 struct TaskWidgetAttributes: ActivityAttributes {
     public struct ContentState: Codable, Hashable {
-        // Dynamic stateful properties about your activity go here!
-        var emoji: String
+        var isCompleted: Bool
     }
 
     var taskID: UUID

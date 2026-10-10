@@ -14,31 +14,26 @@ struct TaskWidgetLiveActivity: Widget {
         ActivityConfiguration(for: TaskWidgetAttributes.self) { context in
             VStack {
                 Text(context.attributes.taskTitle)
-                Text(context.state.emoji)
+                Text(context.state.isCompleted ? "완료" : "진행 중")
             }
         } dynamicIsland: { context in
             DynamicIsland {
-                // Expanded UI goes here.  Compose the expanded UI through
-                // various regions, like leading/trailing/center/bottom
                 DynamicIslandExpandedRegion(.leading) {
-                    Text("Leading")
+                    Text("할 일")
                 }
                 DynamicIslandExpandedRegion(.trailing) {
-                    Text("Trailing")
+                    Text(context.state.isCompleted ? "완료" : "진행 중")
                 }
                 DynamicIslandExpandedRegion(.bottom) {
-                    Text("Bottom \(context.state.emoji)")
-                    // more content
+                    Text(context.attributes.taskTitle)
                 }
             } compactLeading: {
-                Text("L")
+                Text("할 일")
             } compactTrailing: {
-                Text("T \(context.state.emoji)")
+                Text(context.state.isCompleted ? "✓" : "진행")
             } minimal: {
-                Text(context.state.emoji)
+                Text(context.state.isCompleted ? "✓" : "●")
             }
-            .widgetURL(URL(string: "http://www.apple.com"))
-            .keylineTint(Color.red)
         }
     }
 }
@@ -50,18 +45,18 @@ extension TaskWidgetAttributes {
 }
 
 extension TaskWidgetAttributes.ContentState {
-    fileprivate static var smiley: TaskWidgetAttributes.ContentState {
-        TaskWidgetAttributes.ContentState(emoji: "😀")
+    fileprivate static var inProgress: TaskWidgetAttributes.ContentState {
+        TaskWidgetAttributes.ContentState(isCompleted: false)
      }
      
-     fileprivate static var starEyes: TaskWidgetAttributes.ContentState {
-         TaskWidgetAttributes.ContentState(emoji: "🤩")
+     fileprivate static var completed: TaskWidgetAttributes.ContentState {
+         TaskWidgetAttributes.ContentState(isCompleted: true)
      }
 }
 
 #Preview("Notification", as: .content, using: TaskWidgetAttributes.preview) {
    TaskWidgetLiveActivity()
 } contentStates: {
-    TaskWidgetAttributes.ContentState.smiley
-    TaskWidgetAttributes.ContentState.starEyes
+    TaskWidgetAttributes.ContentState.inProgress
+    TaskWidgetAttributes.ContentState.completed
 }
