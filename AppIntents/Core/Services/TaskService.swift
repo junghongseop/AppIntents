@@ -9,6 +9,7 @@ import Foundation
 
 enum TaskServiceError: Error {
     case emptyTitle
+    case taskNotFound
 }
 
 @MainActor
@@ -32,5 +33,18 @@ final class TaskService {
     
     func fetchTasks() async throws -> [TaskItem]{
         try await repository.fetchAll()
+    }
+    
+    func completeTask(id: UUID) async throws -> TaskItem {
+        guard let task = try await repository.fetch(id: id) else {
+            throw TaskServiceError.taskNotFound
+        }
+        
+        if !task.isCompleted {
+            task.isCompleted = true
+            try await repository.save()
+        }
+            
+        return task
     }
 }
