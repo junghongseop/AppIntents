@@ -63,15 +63,14 @@ struct TaskWidgetEntryView : View {
     var entry: Provider.Entry
 
     var body: some View {
-        VStack {
-            Text("Time:")
-            Text(entry.date, style: .time)
-
-            Text("Favorite Emoji:")
-            Text(entry.configuration.favoriteEmoji)
+        VStack(alignment: .leading, spacing: 8) {
+            Text(entry.configuration.includesCompleted ? "전체 할 일" : "남은 할 일")
+                .font(.caption)
             
-            Text("할 일 \(entry.taskCount)개")
+            Text("\(entry.taskCount)개")
+                .font(.largeTitle.bold())
         }
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
     }
 }
 
