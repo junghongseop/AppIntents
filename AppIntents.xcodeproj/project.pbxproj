@@ -6,11 +6,60 @@
 	objectVersion = 110;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		8EB939D7307A1DFF00323B0D /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EB939D6307A1DFE00323B0D /* WidgetKit.framework */; };
+		8EB939D9307A1DFF00323B0D /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8EB939D8307A1DFF00323B0D /* SwiftUI.framework */; };
+		8EB939EA307A1DFF00323B0D /* TaskWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 8EB939D4307A1DFE00323B0D /* TaskWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		8EB939E8307A1DFF00323B0D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 8ED6BD6B30754E8800DF7DBE /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 8EB939D3307A1DFE00323B0D;
+			remoteInfo = TaskWidgetExtension;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		8EB939EB307A1DFF00323B0D /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			dstPath = "";
+			dstSubfolder = PlugIns;
+			files = (
+				8EB939EA307A1DFF00323B0D /* TaskWidgetExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		8EB939D4307A1DFE00323B0D /* TaskWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = TaskWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		8EB939D6307A1DFE00323B0D /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		8EB939D8307A1DFF00323B0D /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
 		8ED6BD7330754E8800DF7DBE /* AppIntents.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = AppIntents.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		8EB939EE307A1DFF00323B0D /* Exceptions for "TaskWidget" folder in "TaskWidgetExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 8EB939D3307A1DFE00323B0D /* TaskWidgetExtension */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
+		8EB939DA307A1DFF00323B0D /* TaskWidget */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				8EB939EE307A1DFF00323B0D /* Exceptions for "TaskWidget" folder in "TaskWidgetExtension" target */,
+			);
+			path = TaskWidget;
+			sourceTree = "<group>";
+		};
 		8ED6BD7530754E8800DF7DBE /* AppIntents */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = AppIntents;
@@ -19,6 +68,13 @@
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		8EB939D1307A1DFE00323B0D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			files = (
+				8EB939D9307A1DFF00323B0D /* SwiftUI.framework in Frameworks */,
+				8EB939D7307A1DFF00323B0D /* WidgetKit.framework in Frameworks */,
+			);
+		};
 		8ED6BD7030754E8800DF7DBE /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			files = (
@@ -27,10 +83,21 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		8EB939D5307A1DFE00323B0D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				8EB939D6307A1DFE00323B0D /* WidgetKit.framework */,
+				8EB939D8307A1DFF00323B0D /* SwiftUI.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		8ED6BD6A30754E8800DF7DBE = {
 			isa = PBXGroup;
 			children = (
 				8ED6BD7530754E8800DF7DBE /* AppIntents */,
+				8EB939DA307A1DFF00323B0D /* TaskWidget */,
+				8EB939D5307A1DFE00323B0D /* Frameworks */,
 				8ED6BD7430754E8800DF7DBE /* Products */,
 			);
 			sourceTree = "<group>";
@@ -39,6 +106,7 @@
 			isa = PBXGroup;
 			children = (
 				8ED6BD7330754E8800DF7DBE /* AppIntents.app */,
+				8EB939D4307A1DFE00323B0D /* TaskWidgetExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -46,6 +114,24 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		8EB939D3307A1DFE00323B0D /* TaskWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 8EB939EF307A1DFF00323B0D /* Build configuration list for PBXNativeTarget "TaskWidgetExtension" */;
+			buildPhases = (
+				8EB939D0307A1DFE00323B0D /* Sources */,
+				8EB939D1307A1DFE00323B0D /* Frameworks */,
+				8EB939D2307A1DFE00323B0D /* Resources */,
+			);
+			buildRules = (
+			);
+			fileSystemSynchronizedGroups = (
+				8EB939DA307A1DFF00323B0D /* TaskWidget */,
+			);
+			name = TaskWidgetExtension;
+			productName = TaskWidgetExtension;
+			productReference = 8EB939D4307A1DFE00323B0D /* TaskWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		8ED6BD7230754E8800DF7DBE /* AppIntents */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 8ED6BD7E30754E8800DF7DBE /* Build configuration list for PBXNativeTarget "AppIntents" */;
@@ -53,8 +139,12 @@
 				8ED6BD6F30754E8800DF7DBE /* Sources */,
 				8ED6BD7030754E8800DF7DBE /* Frameworks */,
 				8ED6BD7130754E8800DF7DBE /* Resources */,
+				8EB939EB307A1DFF00323B0D /* Embed Foundation Extensions */,
 			);
 			buildRules = (
+			);
+			dependencies = (
+				8EB939E9307A1DFF00323B0D /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				8ED6BD7530754E8800DF7DBE /* AppIntents */,
@@ -74,6 +164,9 @@
 				LastSwiftUpdateCheck = 2700;
 				LastUpgradeCheck = 2700;
 				TargetAttributes = {
+					8EB939D3307A1DFE00323B0D = {
+						CreatedOnToolsVersion = 27.0;
+					};
 					8ED6BD7230754E8800DF7DBE = {
 						CreatedOnToolsVersion = 27.0;
 					};
@@ -94,11 +187,17 @@
 			projectRoot = "";
 			targets = (
 				8ED6BD7230754E8800DF7DBE /* AppIntents */,
+				8EB939D3307A1DFE00323B0D /* TaskWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		8EB939D2307A1DFE00323B0D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			files = (
+			);
+		};
 		8ED6BD7130754E8800DF7DBE /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			files = (
@@ -107,6 +206,11 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		8EB939D0307A1DFE00323B0D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			files = (
+			);
+		};
 		8ED6BD6F30754E8800DF7DBE /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			files = (
@@ -114,7 +218,75 @@
 		};
 /* End PBXSourcesBuildPhase section */
 
+/* Begin PBXTargetDependency section */
+		8EB939E9307A1DFF00323B0D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 8EB939D3307A1DFE00323B0D /* TaskWidgetExtension */;
+			targetProxy = 8EB939E8307A1DFF00323B0D /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
 /* Begin XCBuildConfiguration section */
+		8EB939EC307A1DFF00323B0D /* Debug configuration for PBXNativeTarget "TaskWidgetExtension" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = HJGS4LQ7XH;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = TaskWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = TaskWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.theo.AppIntents.TaskWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		8EB939ED307A1DFF00323B0D /* Release configuration for PBXNativeTarget "TaskWidgetExtension" */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = HJGS4LQ7XH;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = TaskWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = TaskWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.theo.AppIntents.TaskWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				STRING_CATALOG_GENERATE_SYMBOLS = YES;
+				SWIFT_APPROACHABLE_CONCURRENCY = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_UPCOMING_FEATURE_MEMBER_IMPORT_VISIBILITY = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		8ED6BD7C30754E8800DF7DBE /* Debug configuration for PBXProject "AppIntents" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -305,6 +477,14 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		8EB939EF307A1DFF00323B0D /* Build configuration list for PBXNativeTarget "TaskWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				8EB939EC307A1DFF00323B0D /* Debug configuration for PBXNativeTarget "TaskWidgetExtension" */,
+				8EB939ED307A1DFF00323B0D /* Release configuration for PBXNativeTarget "TaskWidgetExtension" */,
+			);
+			defaultConfigurationName = Release;
+		};
 		8ED6BD6E30754E8800DF7DBE /* Build configuration list for PBXProject "AppIntents" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
