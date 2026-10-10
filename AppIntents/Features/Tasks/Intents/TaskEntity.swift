@@ -7,13 +7,15 @@
 
 import Foundation
 import AppIntents
+import CoreSpotlight
 
-struct TaskEntity: AppEntity {
+struct TaskEntity: IndexedEntity {
     static let typeDisplayRepresentation: TypeDisplayRepresentation = "할 일"
     static let defaultQuery = TaskEntityQuery()
     
     let id: UUID
-    @Property(title: "제목") var title: String
+    @Property(title: "제목", indexingKey: \.displayName)
+    var title: String
     
     var displayRepresentation: DisplayRepresentation {
         DisplayRepresentation(title: "\(title)")

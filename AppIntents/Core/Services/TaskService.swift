@@ -7,6 +7,8 @@
 
 import Foundation
 import WidgetKit
+import AppIntents
+import CoreSpotlight
 
 enum TaskServiceError: Error {
     case emptyTitle
@@ -30,6 +32,13 @@ final class TaskService {
         
         let task = TaskItem(title: title, dueDate: dueDate, priority: priority)
         try await repository.add(task)
+        
+        do {
+            try await CSSearchableIndex(name: "TaskItems")
+                .indexAppEntities([TaskEntity(task: task)])
+        } catch {
+            print("Spotlight 색인 실패: \(error)")
+        }
         
         WidgetCenter.shared.reloadTimelines(ofKind: "TaskWidget")
         
