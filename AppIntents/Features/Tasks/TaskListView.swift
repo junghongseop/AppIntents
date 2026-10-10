@@ -47,6 +47,12 @@ struct TaskListView: View {
                         
                         Text(task.isCompleted ? "완료" : "진행 중")
                             .font(.caption)
+                        
+                        if !task.isCompleted {
+                            Button("Live Activity 시작") {
+                                viewModel.startActivity(for: task)
+                            }
+                        }
                     }
                 }
             }

@@ -12,6 +12,7 @@ import Observation
 @Observable
 final class TaskListViewModel {
     private let service: TaskService
+    private let activityService = TaskActivityService()
     
     var tasks: [TaskItem] = []
     var newTaskTitle = ""
@@ -37,6 +38,15 @@ final class TaskListViewModel {
             errorMessage = nil
         } catch TaskServiceError.emptyTitle {
             errorMessage = "제목을 입력해 주세요."
+        } catch {
+            errorMessage = error.localizedDescription
+        }
+    }
+    
+    func startActivity(for task: TaskItem) {
+        do {
+            try activityService.start(for: task)
+            errorMessage = nil
         } catch {
             errorMessage = error.localizedDescription
         }
