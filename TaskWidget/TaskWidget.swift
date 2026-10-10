@@ -19,7 +19,9 @@ struct Provider: AppIntentTimelineProvider {
     }
     
     func timeline(for configuration: ConfigurationAppIntent, in context: Context) async -> Timeline<SimpleEntry> {
-        let taskCount = await fetchTaskCount()
+        let taskCount = await fetchTaskCount(
+            includesCompleted: configuration.includesCompleted
+        )
         var entries: [SimpleEntry] = []
 
         // Generate a timeline consisting of five entries an hour apart, starting from the current date.
@@ -38,10 +40,12 @@ struct Provider: AppIntentTimelineProvider {
 //    }
     
     @MainActor
-    private func fetchTaskCount() -> Int {
+    private func fetchTaskCount(includesCompleted: Bool) -> Int {
         do {
             let container = try TaskModelContainer.make()
-            return try container.mainContext.fetch(FetchDescriptor<TaskItem>()).count
+            let tasks = try container.mainContext.fetch(FetchDescriptor<TaskItem>())
+            
+            return includesCompleted ? tasks.count : tasks.filter { !$0.isCompleted }.count
         } catch {
             print("할 일 조회 실패: \(error)")
             return 0
