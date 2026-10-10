@@ -33,12 +33,7 @@ final class TaskService {
         let task = TaskItem(title: title, dueDate: dueDate, priority: priority)
         try await repository.add(task)
         
-        do {
-            try await CSSearchableIndex(name: "TaskItems")
-                .indexAppEntities([TaskEntity(task: task)])
-        } catch {
-            print("Spotlight 색인 실패: \(error)")
-        }
+        await indexTasks([task])
         
         WidgetCenter.shared.reloadTimelines(ofKind: "TaskWidget")
         
@@ -64,5 +59,16 @@ final class TaskService {
         }
             
         return task
+    }
+    
+    func indexTasks(_ tasks: [TaskItem]) async {
+        guard !tasks.isEmpty else { return }
+        
+        do {
+            try await CSSearchableIndex(name: "TaskItems")
+                .indexAppEntities(tasks.map(TaskEntity.init))
+        } catch {
+            print("Spotlight 색인 실패: \(error)")
+        }
     }
 }

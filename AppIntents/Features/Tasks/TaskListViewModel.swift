@@ -24,7 +24,9 @@ final class TaskListViewModel {
     
     func loadTasks() async {
         do {
-            tasks = try await service.fetchTasks()
+            let fetchedTasks = try await service.fetchTasks()
+            tasks = fetchedTasks
+            await service.indexTasks(fetchedTasks)
         } catch {
             errorMessage = error.localizedDescription
         }
