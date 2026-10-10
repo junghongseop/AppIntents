@@ -18,5 +18,14 @@ struct TaskAppShortcuts: AppShortcutsProvider {
             shortTitle: "할 일 추가",
             systemImageName: "plus.circle"
         )
+        
+        AppShortcut(
+            intent: CompleteTaskIntent(),
+            phrases: [
+                "\(.applicationName)에서 할 일 완료"
+            ],
+            shortTitle: "할 일 완료",
+            systemImageName: "checkmark.circle"
+        )
     }
 }
