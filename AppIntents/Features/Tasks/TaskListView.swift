@@ -6,10 +6,12 @@
 //
 
 import SwiftUI
+import AppIntents
 
 struct TaskListView: View {
     @Environment(\.scenePhase) private var scenePhase
     @Bindable var viewModel: TaskListViewModel
+    @State private var selectedTask: TaskItem?
     
     var body: some View {
         NavigationStack {
@@ -65,6 +67,30 @@ struct TaskListView: View {
                     Task {
                         await viewModel.loadTasks()
                     }
+                }
+            }
+            .onAppIntentExecution(OpenTaskIntent.self) { intent in
+                Task {
+                    await viewModel.loadTasks()
+                    selectedTask = viewModel.tasks.first { $0.id == intent.target.id}
+                }
+            }
+            .sheet(item: $selectedTask) { task in
+                NavigationStack {
+                    VStack(alignment: .leading, spacing: 12) {
+                        Text(task.title)
+                            .font(.title2)
+                        
+                        if let dueDate = task.dueDate {
+                            Text("마감일: \(dueDate.formatted(date: .abbreviated, time: .omitted))")
+                        }
+                        
+                        Text("중요도: \(task.priority.label)")
+                        
+                        Text(task.isCompleted ? "완료" : "진행 중")
+                    }
+                    .padding()
+                    .navigationTitle("할 일")
                 }
             }
         }
