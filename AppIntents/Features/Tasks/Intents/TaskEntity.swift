@@ -25,7 +25,7 @@ struct TaskEntity: AppEntity {
     }
 }
 
-struct TaskEntityQuery: EntityQuery {
+struct TaskEntityQuery: EntityStringQuery {
     @Dependency private var service: TaskService
     
     @MainActor
@@ -34,6 +34,15 @@ struct TaskEntityQuery: EntityQuery {
         
         return tasks
             .filter { identifiers.contains($0.id) }
+            .map(TaskEntity.init)
+    }
+    
+    @MainActor
+    func entities(matching string: String) async throws -> [TaskEntity] {
+        let tasks = try await service.fetchTasks()
+        
+        return tasks
+            .filter { $0.title.localizedCaseInsensitiveContains(string) }
             .map(TaskEntity.init)
     }
     
