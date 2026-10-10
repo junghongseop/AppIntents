@@ -47,6 +47,8 @@ final class TaskService {
         if !task.isCompleted {
             task.isCompleted = true
             try await repository.save()
+            
+            WidgetCenter.shared.reloadTimelines(ofKind: "TaskWidget")
         }
             
         return task
