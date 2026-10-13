@@ -11,15 +11,25 @@ import SwiftData
 
 struct Provider: AppIntentTimelineProvider {
     func placeholder(in context: Context) -> SimpleEntry {
-        SimpleEntry(date: Date(), configuration: ConfigurationAppIntent(), taskCount: 0)
+        SimpleEntry(
+            date: Date(),
+            configuration: ConfigurationAppIntent(),
+            taskCount: 0,
+            task: nil
+        )
     }
 
     func snapshot(for configuration: ConfigurationAppIntent, in context: Context) async -> SimpleEntry {
-        SimpleEntry(date: Date(), configuration: configuration, taskCount: 0)
+        SimpleEntry(
+            date: Date(),
+            configuration: configuration,
+            taskCount: 0,
+            task: nil
+        )
     }
     
     func timeline(for configuration: ConfigurationAppIntent, in context: Context) async -> Timeline<SimpleEntry> {
-        let taskCount = await fetchTaskCount(
+        let widgetData = await fetchWidgetData(
             includesCompleted: configuration.includesCompleted
         )
         var entries: [SimpleEntry] = []
@@ -28,7 +38,12 @@ struct Provider: AppIntentTimelineProvider {
         let currentDate = Date()
         for hourOffset in 0 ..< 5 {
             let entryDate = Calendar.current.date(byAdding: .hour, value: hourOffset, to: currentDate)!
-            let entry = SimpleEntry(date: entryDate, configuration: configuration, taskCount: taskCount)
+            let entry = SimpleEntry(
+                date: entryDate,
+                configuration: configuration,
+                taskCount: widgetData.count,
+                task: widgetData.task
+            )
             entries.append(entry)
         }
 
@@ -40,23 +55,35 @@ struct Provider: AppIntentTimelineProvider {
 //    }
     
     @MainActor
-    private func fetchTaskCount(includesCompleted: Bool) -> Int {
+    private func fetchWidgetData(includesCompleted: Bool) -> (count: Int, task: WidgetTaskSnapshot?) {
         do {
             let container = try TaskModelContainer.make()
             let tasks = try container.mainContext.fetch(FetchDescriptor<TaskItem>())
+            let remaining = tasks.filter { !$0.isCompleted }
+            let first = remaining.min { $0.createdAt < $1.createdAt }
             
-            return includesCompleted ? tasks.count : tasks.filter { !$0.isCompleted }.count
+            let count = includesCompleted ? tasks.count : remaining.count
+            let snapshot = first.map {
+                WidgetTaskSnapshot(id: $0.id, title: $0.title)
+            }
+            return (count, snapshot)
         } catch {
             print("할 일 조회 실패: \(error)")
-            return 0
+            return (0, nil)
         }
     }
+}
+
+struct WidgetTaskSnapshot: Sendable {
+    let id: UUID
+    let title: String
 }
 
 struct SimpleEntry: TimelineEntry {
     let date: Date
     let configuration: ConfigurationAppIntent
     let taskCount: Int
+    let task: WidgetTaskSnapshot?
 }
 
 struct TaskWidgetEntryView : View {
@@ -69,6 +96,16 @@ struct TaskWidgetEntryView : View {
             
             Text("\(entry.taskCount)개")
                 .font(.largeTitle.bold())
+            
+            if let task = entry.task {
+                Text(task.title)
+                    .font(.caption)
+                    .lineLimit(2)
+            } else {
+                Text("미완료 할 일 없음")
+                    .font(.caption)
+                    .foregroundStyle(.secondary)
+            }
         }
         .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .leading)
     }
@@ -91,6 +128,7 @@ struct TaskWidget: Widget {
     SimpleEntry(
         date: .now,
         configuration: ConfigurationAppIntent(),
-        taskCount: 0
+        taskCount: 0,
+        task: nil
     )
 }
