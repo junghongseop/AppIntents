@@ -18,7 +18,7 @@ struct TaskWidgetControl: ControlWidget {
             intent: TaskControlConfiguration.self
         ) { configuration in
             ControlWidgetButton(
-                action: CompleteWidgetTaskIntent(taskID: configuration.task?.id)
+                action: CompleteTaskInteractionIntent(taskID: configuration.task?.id)
             ) {
                 Label(configuration.task?.title ?? "할 일 선택", systemImage: "checkmark.circle")
             }

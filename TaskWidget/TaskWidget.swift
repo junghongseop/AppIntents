@@ -111,7 +111,7 @@ struct TaskWidgetEntryView : View {
                         .lineLimit(2)
                         .frame(maxWidth: .infinity, alignment: .leading)
                     
-                    Button(intent: CompleteWidgetTaskIntent(taskID: task.id)) {
+                    Button(intent: CompleteTaskInteractionIntent(taskID: task.id)) {
                         Image(systemName: "checkmark.circle")
                     }
                     .buttonStyle(.plain)

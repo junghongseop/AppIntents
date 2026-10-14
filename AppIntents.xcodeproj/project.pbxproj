@@ -46,7 +46,7 @@
 		8E4AEFC6307F15AC00B4DAD3 /* Exceptions for "TaskWidget" folder in "AppIntents" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				CompleteWidgetTaskIntent.swift,
+				CompleteTaskInteractionIntent.swift,
 			);
 			target = 8ED6BD7230754E8800DF7DBE /* AppIntents */;
 		};

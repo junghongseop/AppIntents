@@ -8,6 +8,7 @@
 import Foundation
 import AppIntents
 
+@AppIntent(schema: .system.open)
 struct OpenTaskIntent: OpenIntent, TargetContentProvidingIntent {
     static let title: LocalizedStringResource = "할 일 열기"
     

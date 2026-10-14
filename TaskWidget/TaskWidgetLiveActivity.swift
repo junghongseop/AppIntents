@@ -18,7 +18,7 @@ struct TaskWidgetLiveActivity: Widget {
                 Text(context.state.isCompleted ? "완료" : "진행 중")
                 
                 if !context.state.isCompleted {
-                    Button(intent: CompleteWidgetTaskIntent(taskID: context.attributes.taskID)) {
+                    Button(intent: CompleteTaskInteractionIntent(taskID: context.attributes.taskID)) {
                         Label("완료", systemImage: "checkmark.circle")
                     }
                 }
@@ -35,7 +35,7 @@ struct TaskWidgetLiveActivity: Widget {
                     Text(context.attributes.taskTitle)
                     
                     if !context.state.isCompleted {
-                        Button(intent: CompleteWidgetTaskIntent(taskID: context.attributes.taskID)) {
+                        Button(intent: CompleteTaskInteractionIntent(taskID: context.attributes.taskID)) {
                             Label("완료", systemImage: "checkmark.circle")
                         }
                     }

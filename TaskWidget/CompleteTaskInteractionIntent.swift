@@ -1,5 +1,5 @@
 //
-//  CompleteWidgetTaskIntent.swift
+//  CompleteTaskInteractionIntent.swift
 //  TaskWidgetExtension
 //
 //  Created by 정홍섭 on 10/14/26.
@@ -8,8 +8,8 @@
 import Foundation
 import AppIntents
 
-struct CompleteWidgetTaskIntent: LiveActivityIntent {
-    static var title: LocalizedStringResource = "위젯에서 할 일 완료"
+struct CompleteTaskInteractionIntent: LiveActivityIntent {
+    static var title: LocalizedStringResource = "할 일 완료"
     static var isDiscoverable: Bool = false
     
     @Parameter(title: "할 일 ID")
