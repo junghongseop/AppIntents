@@ -30,9 +30,7 @@ struct Provider: AppIntentTimelineProvider {
     }
     
     func timeline(for configuration: ConfigurationAppIntent, in context: Context) async -> Timeline<SimpleEntry> {
-        let widgetData = await fetchWidgetData(
-            includesCompleted: configuration.includesCompleted
-        )
+        let widgetData = await fetchWidgetData(configuration: configuration)
         var entries: [SimpleEntry] = []
 
         // Generate a timeline consisting of five entries an hour apart, starting from the current date.
@@ -56,17 +54,25 @@ struct Provider: AppIntentTimelineProvider {
 //    }
     
     @MainActor
-    private func fetchWidgetData(includesCompleted: Bool) -> (count: Int, task: WidgetTaskSnapshot?) {
+    private func fetchWidgetData(configuration: ConfigurationAppIntent) -> (count: Int, task: WidgetTaskSnapshot?) {
         do {
             let container = try TaskModelContainer.make()
             let tasks = try container.mainContext.fetch(FetchDescriptor<TaskItem>())
             let remaining = tasks.filter { !$0.isCompleted }
-            let first = remaining.min { $0.createdAt < $1.createdAt }
             
-            let count = includesCompleted ? tasks.count : remaining.count
-            let snapshot = first.map {
+            let chosen: TaskItem?
+            
+            if let selectedID = configuration.selectedTask?.id {
+                chosen = remaining.first { $0.id == selectedID }
+            } else {
+                chosen = remaining.min { $0.createdAt < $1.createdAt }
+            }
+            
+            let count = configuration.includesCompleted ? tasks.count : remaining.count
+            let snapshot = chosen.map {
                 WidgetTaskSnapshot(id: $0.id, title: $0.title)
             }
+            
             return (count, snapshot)
         } catch {
             print("할 일 조회 실패: \(error)")
@@ -112,7 +118,7 @@ struct TaskWidgetEntryView : View {
                     .accessibilityLabel("할 일 완료")
                 }
             } else {
-                Text("미완료 할 일 없음")
+                Text(entry.configuration.selectedTask == nil ? "미완료 할 일 없음" : "선택한 할 일 없음")
                     .font(.caption)
                     .foregroundStyle(.secondary)
             }
