@@ -33,6 +33,12 @@ struct TaskWidgetLiveActivity: Widget {
                 }
                 DynamicIslandExpandedRegion(.bottom) {
                     Text(context.attributes.taskTitle)
+                    
+                    if !context.state.isCompleted {
+                        Button(intent: CompleteWidgetTaskIntent(taskID: context.attributes.taskID)) {
+                            Label("완료", systemImage: "checkmark.circle")
+                        }
+                    }
                 }
             } compactLeading: {
                 Text("할 일")
