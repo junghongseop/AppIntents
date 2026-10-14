@@ -60,7 +60,6 @@
 		8EB939F3307A22B000323B0D /* Exceptions for "AppIntents" folder in "TaskWidgetExtension" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
-				App/AppIntentsApp.swift,
 				Core/Models/TaskItem.swift,
 				Core/Models/TaskWidgetAttributes.swift,
 				Core/Repositories/TaskModelContainer.swift,
