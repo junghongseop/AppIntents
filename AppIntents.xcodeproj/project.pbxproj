@@ -43,6 +43,13 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		8E4AEFC6307F15AC00B4DAD3 /* Exceptions for "TaskWidget" folder in "AppIntents" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				CompleteWidgetTaskIntent.swift,
+			);
+			target = 8ED6BD7230754E8800DF7DBE /* AppIntents */;
+		};
 		8EB939EE307A1DFF00323B0D /* Exceptions for "TaskWidget" folder in "TaskWidgetExtension" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
@@ -53,6 +60,7 @@
 		8EB939F3307A22B000323B0D /* Exceptions for "AppIntents" folder in "TaskWidgetExtension" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
+				App/AppIntentsApp.swift,
 				Core/Models/TaskItem.swift,
 				Core/Models/TaskWidgetAttributes.swift,
 				Core/Repositories/TaskModelContainer.swift,
@@ -72,6 +80,7 @@
 		8EB939DA307A1DFF00323B0D /* TaskWidget */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
+				8E4AEFC6307F15AC00B4DAD3 /* Exceptions for "TaskWidget" folder in "AppIntents" target */,
 				8EB939EE307A1DFF00323B0D /* Exceptions for "TaskWidget" folder in "TaskWidgetExtension" target */,
 			);
 			path = TaskWidget;

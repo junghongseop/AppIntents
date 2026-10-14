@@ -23,6 +23,12 @@ struct AppIntentsApp: App {
         _viewModel = State(initialValue: TaskListViewModel(service: service))
         
         AppDependencyManager.shared.add(dependency: service)
+        
+        AppDependencyManager.shared.add(
+            dependency: TaskCompletionAction { id in
+                _ = try await service.completeTask(id: id)
+            }
+        )
     }
     
     var body: some Scene {
