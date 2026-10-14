@@ -47,4 +47,10 @@ struct WidgetTaskQuery: EntityQuery {
             .filter { !onlyIncomplete || !$0.isCompleted }
             .map(WidgetTaskEntity.init)
     }
+    
+    @MainActor
+    func defaultResult() async -> WidgetTaskEntity? {
+        let entities = try? fetchEntities(onlyIncomplete: true)
+        return entities?.first
+    }
 }
