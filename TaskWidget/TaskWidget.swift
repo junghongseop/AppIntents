@@ -8,6 +8,7 @@
 import WidgetKit
 import SwiftUI
 import SwiftData
+import AppIntents
 
 struct Provider: AppIntentTimelineProvider {
     func placeholder(in context: Context) -> SimpleEntry {
@@ -98,9 +99,18 @@ struct TaskWidgetEntryView : View {
                 .font(.largeTitle.bold())
             
             if let task = entry.task {
-                Text(task.title)
-                    .font(.caption)
-                    .lineLimit(2)
+                HStack(spacing: 8) {
+                    Text(task.title)
+                        .font(.caption)
+                        .lineLimit(2)
+                        .frame(maxWidth: .infinity, alignment: .leading)
+                    
+                    Button(intent: CompleteWidgetTaskIntent(taskID: task.id)) {
+                        Image(systemName: "checkmark.circle")
+                    }
+                    .buttonStyle(.plain)
+                    .accessibilityLabel("할 일 완료")
+                }
             } else {
                 Text("미완료 할 일 없음")
                     .font(.caption)
