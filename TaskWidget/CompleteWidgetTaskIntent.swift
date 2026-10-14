@@ -13,18 +13,18 @@ struct CompleteWidgetTaskIntent: LiveActivityIntent {
     static var isDiscoverable: Bool = false
     
     @Parameter(title: "할 일 ID")
-    var taskID: String
+    var taskID: String?
     
     init() {}
     
-    init(taskID: UUID) {
-        self.taskID = taskID.uuidString
+    init(taskID: UUID?) {
+        self.taskID = taskID?.uuidString
     }
     
     @Dependency private var action: TaskCompletionAction
     
     func perform() async throws -> some IntentResult {
-        guard let id = UUID(uuidString: taskID) else {
+        guard let taskID, let id = UUID(uuidString: taskID) else {
             throw AppIntentError(description: "할 일 ID가 올바르지 않아요.")
         }
         
