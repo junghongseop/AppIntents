@@ -14,4 +14,7 @@ struct ConfigurationAppIntent: WidgetConfigurationIntent {
     
     @Parameter(title: "완료한 할 일 포함", default: true)
     var includesCompleted: Bool
+    
+    @Parameter(title: "표시할 할 일")
+    var selectedTask: WidgetTaskEntity?
 }
