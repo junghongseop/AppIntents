@@ -8,6 +8,7 @@
 import ActivityKit
 import WidgetKit
 import SwiftUI
+import AppIntents
 
 struct TaskWidgetLiveActivity: Widget {
     var body: some WidgetConfiguration {
@@ -15,6 +16,12 @@ struct TaskWidgetLiveActivity: Widget {
             VStack {
                 Text(context.attributes.taskTitle)
                 Text(context.state.isCompleted ? "완료" : "진행 중")
+                
+                if !context.state.isCompleted {
+                    Button(intent: CompleteWidgetTaskIntent(taskID: context.attributes.taskID)) {
+                        Label("완료", systemImage: "checkmark.circle")
+                    }
+                }
             }
         } dynamicIsland: { context in
             DynamicIsland {
